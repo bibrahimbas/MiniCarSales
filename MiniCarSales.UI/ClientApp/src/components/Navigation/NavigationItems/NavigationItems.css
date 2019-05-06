@@ -1,0 +1,11 @@
+.NavigationItems {
+    float: right;
+    margin-right: 5%;
+    padding-top: 1%;
+}
+
+@media (min-width: 500px) {
+    .NavigationItems {
+        flex-flow: row;
+    }
+}
