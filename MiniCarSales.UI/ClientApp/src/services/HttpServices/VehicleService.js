@@ -1,41 +1,32 @@
-let carList = [];
+import axios from 'axios';
 
-const getCacheData = (type, _make) => {
-    return new Promise((resolve, reject) => {
-        switch (type) {
-            case ('Engine'):
-                resolve(["1000cc", "1600cc", "2000cc", "2500cc"]);
-                break;
-            case ('Make'):
-                resolve(["Audi", "BMW", "Mazda", "Subaru"]);
-                break;
-            case ('MakeModel'):
-                resolve([{ "make": "Audi", "models": ["A3", "A5", "Q3", "Q5", "R8"] },
-                { "make": "BMW", "models": ["3 Series", "5 Series", "X3", "X5", "Z4"] },
-                { "make": "Mazda", "models": ["3", "6", "CX3", "CX5", "MX5"] },
-                { "make": "Subaru", "models": ["Impreza", "Forester", "Outback", "BRZ"] }]);
-                break;
-            case ('BodyType'):
-                resolve(["Sedan", "Hatchback", "SUV", "UTE"]);
-                break;
-            default:
-                reject();
-                break;
-        }
-    });
+axios.defaults.baseURL = "https://localhost:44341" 
+
+const getCacheData = (type) => {
+    return axios.get("api/cache/" + type)
+        .then(response => {
+            return response.data;
+        }).catch(error => {
+            return error;
+        });
 };
 
 export function createCar(carData) {
-    return new Promise((resolve) => {
-        carList.push(carData);
-        return resolve(true);
-    });
+    return axios.post("/api/car", carData)
+        .then(response => {
+            return response.data;
+        }).catch(error => {
+            return error;
+        });
 }
 
 export function getVehicles() {
-    return new Promise((resolve) => {
-        return resolve(carList);
-    });
+    return axios.get("/api/vehicles")
+        .then(response => {
+            return response.data;
+        }).catch(error => {
+            return error;
+        });
 }
 
 export default getCacheData;

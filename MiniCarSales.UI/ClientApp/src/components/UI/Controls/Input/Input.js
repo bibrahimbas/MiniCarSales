@@ -25,6 +25,8 @@ const input = (props) => {
                 value={props.value}
                 onChange={props.changed} />;
             break;
+        default:
+            break;
     }
 
     return (

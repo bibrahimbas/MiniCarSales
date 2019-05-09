@@ -25,7 +25,7 @@ class CarForm extends Component {
                   var state = this.state;
                   return getCacheData("MakeModel")
                       .then(response => {
-                          var selectedMake = response.filter(make => make.make == state.carForm.make.value);
+                          var selectedMake = response.filter(make => make.make === state.carForm.make.value);
                           if (selectedMake.length === 1)
                               return selectedMake[0].models;
                           else
@@ -167,7 +167,9 @@ class CarForm extends Component {
               return <Button 
                 //disabled={!this.state.formIsValid}
                 key={formElement.config.value}
-                text='Create' />
+                      text='Create' />
+              default:
+                  break;
           }
         })}
       </form>
