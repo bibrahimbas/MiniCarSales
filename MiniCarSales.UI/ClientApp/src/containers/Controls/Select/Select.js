@@ -11,12 +11,14 @@ class Select extends PureComponent {
         if (this.props.config.dataFunc) {
             this.props.config.dataFunc()
                 .then(response => {
-                    this.setState({ options: response });
+                    if (response)
+                        this.setState({ options: response });
                 });
         } else {
             getCacheData(this.props.config.selectType)
                 .then(response => {
-                    this.setState({ options: response })
+                    if (response.data)
+                        this.setState({ options: response.data })
                 });
         }
     }
@@ -26,7 +28,7 @@ class Select extends PureComponent {
             this.props.config.dataFunc().then(response => {
                 if (this.state.options[0] !== response[0]) {
                     this.setState({ options: response });
-                } 
+                }
             });
         }
     }
@@ -47,7 +49,7 @@ class Select extends PureComponent {
                                 this.state.options.map(
                                     option => {
                                         var optionText = this.props.config.dataField ? option[this.props.config.dataField] : option;
-                                        return (<option value={optionText}>
+                                        return (<option key={optionText} value={optionText}>
                                             {optionText}
                                         </option>);
                                     }
